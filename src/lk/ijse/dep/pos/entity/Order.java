@@ -12,7 +12,7 @@ public class Order implements SuperEntity{
     private int id;
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
     private Customer customer;
 

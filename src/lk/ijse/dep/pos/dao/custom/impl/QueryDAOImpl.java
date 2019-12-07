@@ -3,7 +3,11 @@ package lk.ijse.dep.pos.dao.custom.impl;
 import lk.ijse.dep.pos.dao.custom.QueryDAO;
 import lk.ijse.dep.pos.entity.CustomEntity;
 import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QueryDAOImpl implements QueryDAO {
@@ -24,6 +28,7 @@ public class QueryDAOImpl implements QueryDAO {
 
     }
 
+
     @Override
     public CustomEntity getOrderInfo2(int orderId) throws Exception {/*
         ResultSet rst = CrudUtil.execute("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId " +
@@ -43,10 +48,43 @@ public class QueryDAOImpl implements QueryDAO {
     @Override
     public List<CustomEntity> getOrdersInfo(String query) throws Exception {
 
-    return session.createNativeQuery("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId " +
-                "INNER JOIN OrderDetail OD on O.id = OD.orderId WHERE O.id LIKE ?1 OR C.customerId LIKE ?2 OR C.name LIKE ?3 OR O.date LIKE ?4 GROUP BY O.id")
-                .setParameter(1,query).setParameter(2,query).setParameter(3,query).setParameter(4,query).list();
-      /*  ResultSet rst = CrudUtil.execute("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId " +
+
+        NativeQuery nativeQuery = session.createNativeQuery("SELECT O.id AS orderId, C.customerId AS customerId, C.name AS customerName, O.date AS orderDate, SUM(OD.qty * OD.unitPrice) AS orderTotal  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customer_id " +
+                "INNER JOIN OrderDetail OD on O.id = OD.order_id WHERE O.id LIKE ?1 OR C.customerId LIKE ?2 OR C.name LIKE ?3 OR O.date LIKE ?4 GROUP BY O.id")
+                .setParameter(1, query).setParameter(2, query).setParameter(3, query).setParameter(4, query);
+
+        System.out.println(nativeQuery);
+
+        Query<CustomEntity> query1 = nativeQuery.setResultTransformer(Transformers.aliasToBean(CustomEntity.class));
+
+
+        List<CustomEntity> list = query1.list();
+
+
+        return list;
+
+
+
+
+
+
+        /*
+
+         List list = session.createNativeQuery("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customer_id " +
+                "INNER JOIN OrderDetail OD on O.id = OD.order_id WHERE O.id LIKE ?1 OR C.customerId LIKE ?2 OR C.name LIKE ?3 OR O.date LIKE ?4 GROUP BY O.id")
+                .setParameter(1, query).setParameter(2, query).setParameter(3, query).setParameter(4, query).list();
+
+       List<CustomEntity> customEntities = new ArrayList<>();
+
+        for (CustomEntity ce : customEntities) {
+            customEntities.add(new CustomEntity(ce.getOrderId(),ce.getCustomerId(),ce.getCustomerName(),ce.getOrderDate(),ce.getOrderTotal()));
+        }
+
+        System.out.println(customEntities);
+        return customEntities;
+
+
+      *//*  ResultSet rst = CrudUtil.execute("SELECT O.id, C.customerId, C.name, O.date, SUM(OD.qty * OD.unitPrice) AS Total  FROM Customer C INNER JOIN `Order` O ON C.customerId=O.customerId " +
                 "INNER JOIN OrderDetail OD on O.id = OD.orderId WHERE O.id LIKE ? OR C.customerId LIKE ? OR C.name LIKE ? OR O.date LIKE ? GROUP BY O.id", query,query,query,query);
         List<CustomEntity> al = new ArrayList<>();
         while (rst.next()){
@@ -56,7 +94,7 @@ public class QueryDAOImpl implements QueryDAO {
                     rst.getDate(4),
                     rst.getDouble(5)));
         }
-        return al;*/
-//        return null;
+        return al;*//*
+//        return null;*/
     }
 }

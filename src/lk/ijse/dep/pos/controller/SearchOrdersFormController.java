@@ -17,6 +17,7 @@ import lk.ijse.dep.pos.business.BOTypes;
 import lk.ijse.dep.pos.business.custom.OrderBO;
 import lk.ijse.dep.pos.dto.OrderDTO2;
 import lk.ijse.dep.pos.entity.CustomEntity;
+import lk.ijse.dep.pos.util.OrderTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +55,7 @@ public class SearchOrdersFormController {
             List<OrderDTO2> orderInfo = orderBO.getOrderInfo2(txtSearch.getText());
 
             for (OrderDTO2 orderDTO2 : orderInfo) {
-                olOrders.add(new CustomEntity(orderDTO2.getOrderId(), orderDTO2.getCustomerId(), orderDTO2.getCustomerId(), orderDTO2.getOrderDate(), orderDTO2.getTotal()));
+                olOrders.add(new CustomEntity(orderDTO2.getOrderId(), orderDTO2.getCustomerId(), orderDTO2.getCustomerName(), orderDTO2.getOrderDate(), orderDTO2.getTotal()));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,8 +78,7 @@ public class SearchOrdersFormController {
     }
 
 
-/*
-    public void tblOrders_OnMouseClicked(MouseEvent mouseEvent) throws IOException {
+/*    public void tblOrders_OnMouseClicked(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getClickCount() == 2) {
 
             URL resource = this.getClass().getResource("/lk.ijse.dep.pos.view/PlaceOrderForm.fxml");

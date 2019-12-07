@@ -10,6 +10,8 @@ public class OrderDetail implements SuperEntity{
     private int qty;
     private double unitPrice;
 
+
+
     @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
     @JoinColumn(name = "order_id",referencedColumnName = "id",insertable = false,updatable = false)
     private Order order;
