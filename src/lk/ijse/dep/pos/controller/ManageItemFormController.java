@@ -146,13 +146,15 @@ public class ManageItemFormController implements Initializable {
         } else {
             ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
             try {
-                itemBO.updateItem(new ItemDTO(selectedItem.getCode(),
-                        txtDescription.getText(),
-                        Integer.parseInt(txtQtyOnHand.getText()),
-                        Double.parseDouble(txtQtyOnHand.getText())));
+                itemBO.updateItem(
+                        new ItemDTO(
+                                 selectedItem.getCode(),
+                                 txtDescription.getText(),
+                                 Integer.parseInt(txtQtyOnHand.getText()),
+                                 Double.parseDouble(txtUnitPrice.getText())));
                 selectedItem.setDescription(txtDescription.getText());
                 selectedItem.setQtyOnHand(Integer.parseInt(txtQtyOnHand.getText()));
-                selectedItem.setUnitPrice(Double.parseDouble(txtQtyOnHand.getText()));
+                selectedItem.setUnitPrice(Double.parseDouble(txtUnitPrice.getText()));
                 tblItems.refresh();
                 btnAddNew_OnAction(event);
             } catch (Exception e) {

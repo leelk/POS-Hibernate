@@ -1,13 +1,12 @@
 package lk.ijse.dep.pos.dao.custom.impl;
 
 
-import lk.ijse.dep.pos.db.DBConnection;
 import lk.ijse.dep.pos.entity.Gender;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-class CustomerDAOImplTest {
+class CustomerDAOImplTest {/*
 
     static class Test{
         Gender g;
@@ -21,7 +20,7 @@ class CustomerDAOImplTest {
 
     public static void main(String[] args) throws Exception {
         Test test = new Test(Gender.FEMALE);
-        Connection connection = DBConnection.getInstance().getConnection();
+
         PreparedStatement stm = connection.prepareStatement("INSERT INTO Customer VALUES ('C018','Kasun','Galle',?)");
         stm.setString(1, String.valueOf(test.g));
         System.out.println(stm);
@@ -39,5 +38,5 @@ class CustomerDAOImplTest {
 
     void save() throws Exception {
 //        new CustomerDAOImpl().save(new Customer("C014","Kusmadevi","Heaven", Gender.FEMALE));
-    }
+    }*/
 }
