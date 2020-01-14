@@ -17,8 +17,7 @@ public class Customer implements SuperEntity{
 //    private Gender gender;
 
     @OneToMany(mappedBy = "customer",cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
-    private
-    List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 
     public Customer() {
     }

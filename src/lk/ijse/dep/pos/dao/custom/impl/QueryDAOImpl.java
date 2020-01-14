@@ -9,7 +9,8 @@ import org.hibernate.transform.Transformers;
 
 import java.util.List;
 
-public class QueryDAOImpl implements QueryDAO {
+public class
+QueryDAOImpl implements QueryDAO {
 
     public Session session;
 
@@ -38,7 +39,8 @@ public class QueryDAOImpl implements QueryDAO {
         }else{
             return null;
         }*/
-        return null;
+        CustomEntity o = null;
+        return o;
     }
 
     @Override
